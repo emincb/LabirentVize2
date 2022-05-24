@@ -14,9 +14,9 @@ sırasıyla L,X,B harfleri ile seçilebilir.
 	Labirent çözme algoritmamdaki labirente giriş ve çıkış noktaları el ile ayarlanabilir durumda ayrıca el ile ayarlanmadığı zaman yine de çözümü  bulmayı deneyecektir.
 	Labirent çözmek için oluşturduğum recursive backtracking kullanan algoritma basitçe şu şekilde işliyor.
 	Adım 1 Eğer şuanki bulunan nokta hedef ise 
-								başarılı olduğunu döndür
+					başarılı olduğunu döndür
 	Adım 2 veya şuanki bulunan nokta çıkmaz nokta ise
-							başarısız döndür
+					başarısız döndür
   Adım 3 Ve eğer şuanki nokta çıkmaz nokta değil ise
 				yukarıdaki adımları tekrar ederek labirenti gezmeye devam et
 		
