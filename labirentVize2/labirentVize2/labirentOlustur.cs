@@ -11,45 +11,45 @@ namespace labirentVize2
     public class Maze
     {
         
-        private readonly CellState[,] _cells;
-        private readonly int _width;
-        private readonly int _height;
-        private readonly Random _rng;
+        private readonly HucreDurumu[,] hucreler;
+        private readonly int genislik;
+        private readonly int yukseklik;
+        private readonly Random rastgele;
 
         public Maze(int width, int height)
         {
-            _width = width;
-            _height = height;
-            _cells = new CellState[width, height];
+            genislik = width;
+            yukseklik = height;
+            hucreler = new HucreDurumu[width, height];
             for (var x = 0; x < width; x++)
                 for (var y = 0; y < height; y++)
-                    _cells[x, y] = CellState.Initial;
-            _rng = new Random();
-            VisitCell(_rng.Next(width), _rng.Next(height));
+                    hucreler[x, y] = HucreDurumu.Baslangic;
+            rastgele = new Random();
+            HucreyeGit(rastgele.Next(width), rastgele.Next(height));
         }
 
-        public CellState this[int x, int y]
+        public HucreDurumu this[int x, int y]
         {
-            get { return _cells[x, y]; }
-            set { _cells[x, y] = value; }
+            get { return hucreler[x, y]; }
+            set { hucreler[x, y] = value; }
         }
 
-        public IEnumerable<RemoveWallAction> GetNeighbours(Point p)
+        public IEnumerable<DuvarKaldirici> KomsuAl(Point p)
         {
-            if (p.X > 0) yield return new RemoveWallAction { Neighbour = new Point(p.X - 1, p.Y), Wall = CellState.Left };
-            if (p.Y > 0) yield return new RemoveWallAction { Neighbour = new Point(p.X, p.Y - 1), Wall = CellState.Top };
-            if (p.X < _width - 1) yield return new RemoveWallAction { Neighbour = new Point(p.X + 1, p.Y), Wall = CellState.Right };
-            if (p.Y < _height - 1) yield return new RemoveWallAction { Neighbour = new Point(p.X, p.Y + 1), Wall = CellState.Bottom };
+            if (p.X > 0) yield return new DuvarKaldirici { Komsu = new Point(p.X - 1, p.Y), Duvar = HucreDurumu.Sol };
+            if (p.Y > 0) yield return new DuvarKaldirici { Komsu = new Point(p.X, p.Y - 1), Duvar = HucreDurumu.Ust };
+            if (p.X < genislik - 1) yield return new DuvarKaldirici { Komsu = new Point(p.X + 1, p.Y), Duvar = HucreDurumu.Sag };
+            if (p.Y < yukseklik - 1) yield return new DuvarKaldirici { Komsu = new Point(p.X, p.Y + 1), Duvar = HucreDurumu.Alt };
         }
 
-        public void VisitCell(int x, int y)
+        public void HucreyeGit(int x, int y)
         {
-            this[x, y] |= CellState.Visited;
-            foreach (var p in GetNeighbours(new Point(x, y)).Shuffle(_rng).Where(z => !(this[z.Neighbour.X, z.Neighbour.Y].HasFlag(CellState.Visited))))
+            this[x, y] |= HucreDurumu.Gidildi;
+            foreach (var p in KomsuAl(new Point(x, y)).Shuffle(rastgele).Where(z => !(this[z.Komsu.X, z.Komsu.Y].HasFlag(HucreDurumu.Gidildi))))
             {
-                this[x, y] -= p.Wall;
-                this[p.Neighbour.X, p.Neighbour.Y] -= p.Wall.OppositeWall();
-                VisitCell(p.Neighbour.X, p.Neighbour.Y);
+                this[x, y] -= p.Duvar;
+                this[p.Komsu.X, p.Komsu.Y] -= p.Duvar.ZitDuvar();
+                HucreyeGit(p.Komsu.X, p.Komsu.Y);
             }
         }
 
@@ -57,23 +57,23 @@ namespace labirentVize2
         {
             int[,] uret = new int[30, 30];
             var firstLine = string.Empty;
-            for (var y = 0; y < _height; y++)
+            for (var y = 0; y < yukseklik; y++)
             {
                 var sbTop = new StringBuilder();
                 var sbMid = new StringBuilder();
-                for (var x = 0; x < _width; x++)
+                for (var x = 0; x < genislik; x++)
                 {
                     if (x == 6 )
                     {
-                        sbTop.Append(this[x, y].HasFlag(CellState.Top) ? "00" : "11");
-                        sbMid.Append(this[x, y].HasFlag(CellState.Left) ? "01" : "11");
+                        sbTop.Append(this[x, y].HasFlag(HucreDurumu.Ust) ? "00" : "11");
+                        sbMid.Append(this[x, y].HasFlag(HucreDurumu.Sol) ? "01" : "11");
                     }
 
                     else
                     {
-                        sbTop.Append(this[x, y].HasFlag(CellState.Top) ? "010" : "011");
+                        sbTop.Append(this[x, y].HasFlag(HucreDurumu.Ust) ? "010" : "011");
                         
-                        sbMid.Append(this[x, y].HasFlag(CellState.Left) ? "011" : "111");
+                        sbMid.Append(this[x, y].HasFlag(HucreDurumu.Sol) ? "011" : "111");
                     }
                    
                 }
@@ -94,8 +94,16 @@ namespace labirentVize2
                 char[] karakterDizisi = a.ToCharArray();
             //Console.Write(karakterDizisi);                         
             var twoDArray = Make2DArray(karakterDizisi, 30, 30);
-
-
+            Random rand = new Random();
+            int g = rand.Next(1, 30);
+            int h = rand.Next(1, 30);
+            int g1 = rand.Next(1, 30);
+            int h1 = rand.Next(1, 30);
+            int g2 = rand.Next(1, 30);
+            int h2 = rand.Next(1, 30);
+            twoDArray[g, h] = '8';
+            twoDArray[g1, h1] = '8';
+            twoDArray[g2, h2] = '8';
             string e = "{";
                
                 for (int i = 0; i < 30; i++)
@@ -129,10 +137,12 @@ namespace labirentVize2
                 for (int j = 0; j < width; j++)
                 {
                     output[i, j] = input[i * width + j];
-                    Console.Write(output[i, j]);
+                    
+                    
+                    //Console.Write(output[i, j]);
                     
                 }
-                Console.Write(System.Environment.NewLine);
+               // Console.Write(System.Environment.NewLine);
             }
             return output;
         }

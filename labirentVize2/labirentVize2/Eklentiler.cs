@@ -20,26 +20,26 @@ namespace labirentVize2
             }
         }
 
-        public static CellState OppositeWall(this CellState orig)
+        public static HucreDurumu ZitDuvar(this HucreDurumu orig)
         {
-            return (CellState)(((int)orig >> 2) | ((int)orig << 2)) & CellState.Initial;
+            return (HucreDurumu)(((int)orig >> 2) | ((int)orig << 2)) & HucreDurumu.Baslangic;
         }
     }
 
     [Flags]
-    public enum CellState
+    public enum HucreDurumu
     {
-        Top = 1,
-        Right = 2,
-        Bottom = 4,
-        Left = 8,
-        Visited = 128,
-        Initial = Top | Right | Bottom | Left,
+        Ust = 1,
+        Sag = 2,
+        Alt = 4,
+        Sol = 8,
+        Gidildi = 128,
+        Baslangic = Ust | Sag | Alt | Sol,
     }
 
-    public struct RemoveWallAction
+    public struct DuvarKaldirici
     {
-        public Point Neighbour;
-        public CellState Wall;
+        public Point Komsu;
+        public HucreDurumu Duvar;
     }
 }
