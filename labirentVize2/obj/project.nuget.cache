@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "a5x7eV+fFY+CiH4nGMzgp9pFGSY0vs1vbanPf/bEcKHrpQGpKSgVzvht9UzQtxOWrcnjsAEpv121F011k8a1WQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\eminb\\source\\repos\\labirentVize2\\labirentVize2\\labirentVize2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\eminb\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\eminb\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\eminb\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\eminb\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "C:\\Users\\eminb\\.nuget\\packages\\system.drawing.primitives\\4.3.0\\system.drawing.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\eminb\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
+    "C:\\Users\\eminb\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
