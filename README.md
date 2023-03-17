@@ -5,6 +5,30 @@ Emin Can BAŞKAYA
 Erciyes Universitesi Bilgisayar Muhendisligi 1.Sınıf
 
 
+I applied the maze-solving algorithm with the recursive backtracking method for this assignment.
+
+When the start button is pressed, my code creates a maze and saves it to a .txt file on the desktop, and presents a menu in front of us. This menu asks us to choose one of the options to show the original maze, solve the maze, or show the coordinates of the bombs in the maze with B letters. The options can be selected in order with the letters L, X, B.
+
+In my maze-solving algorithm, entry and exit points in the maze can be manually adjusted, and it will still try to find the solution even if it is not adjusted manually. The algorithm I created using recursive backtracking to solve the maze works simply as follows:
+
+Step 1: If the current point is the destination, return successful.
+Step 2: Or if the current point is a dead end, return unsuccessful.
+Step 3: And if the current point is not a dead end, continue to explore the maze by repeating the above steps.
+
+While applying the above steps, I also check whether a bomb has been encountered, whether any exit has been reached, and whether the current coordinates are within the boundaries of the maze. If a bomb is encountered, a beep sound is made and the path taken until the bomb is encountered is drawn in 1s and 0s. If it reaches any of the exits, it prints the x and y coordinates that lead to the exit and then shows the path taken in 1s and 0s to the exit on the maze.
+
+Nested for loops are used for file printing and reading methods. When creating the maze, I create the maze using logical operators, neighbor walls, whether the path has been taken before, wall remover, path goer, and cell state methods, and then print it to a .txt file using FileStream.
+
+The mazeCöz class in my code contains everything necessary to solve the maze. This algorithm works as follows:
+
+After determining the starting points or trying to find the entrance and exit points in the code with bool functions, it first checks whether there is a bomb with an if statement.
+It checks whether it has reached the row where the exit is located with an if loop, and if it has, it marks the corresponding point in the solution matrix and returns true.
+Then it enters the function where the actual recursive backtracking takes place, and checks this with the sinirdaMi function.
+If it is at the boundary, it checks whether x and y are included in the current solution matrix, and if so, returns false.
+Then it marks the found point as coz[x, y] = 1 and calls the function itself by incrementing and decrementing the x and y directions step by step, and returns true if it is correct.
+If none of the above works and it does not enter the loop, it marks coz[x, y] = 0 and returns false.
+
+
 
       Bu ödev için labirent çözme algoritmasını recursive backtracking metoduyla uyguladım.
       
